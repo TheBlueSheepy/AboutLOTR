@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="fr.sheepy.aboutlotr.FirstFragment"
+        android:name="fr.sheepy.aboutlotr.HomePageFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/home_page_fragment">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="fr.sheepy.aboutlotr.SecondFragment"
+        android:name="fr.sheepy.aboutlotr.CharacterFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/character_fragment">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
