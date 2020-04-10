@@ -1,6 +1,7 @@
 package fr.sheepy.aboutlotr;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class CharactersFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
 
     static final String BASE_URL = "https://the-one-api.herokuapp.com/v1/";
+    static final String TOKEN = "56A91xRjOJ5hU3Zxtxry";
 
     @Override
     public View onCreateView(
@@ -45,7 +47,7 @@ public class CharactersFragment extends Fragment {
     }
 
     private void showList(View v) {
-        recyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
+        recyclerView = v.findViewById(R.id.my_recycler_view);
         // use this setting to
         // improve performance if you know that changes
         // in content do not change the layout size
@@ -74,7 +76,7 @@ public class CharactersFragment extends Fragment {
 
         LOTRAPI lotrAPI = retrofit.create(LOTRAPI.class);
 
-        Call<LOTRAPIResponse> call = lotrAPI.getAllCharacter();
+        Call<LOTRAPIResponse> call = lotrAPI.getAllCharacter("Bearer " + TOKEN);
         call.enqueue(new Callback<LOTRAPIResponse>() {
             @Override
             public void onResponse(Call<LOTRAPIResponse> call, Response<LOTRAPIResponse> response) {
@@ -82,6 +84,7 @@ public class CharactersFragment extends Fragment {
                     List<Character> characters = response.body().getDocs();
                     Toast.makeText(getContext(),"API Success",Toast.LENGTH_SHORT).show();
                 } else {
+                    Log.i("API ERROR", response.message());
                     showError();
                 }
             }
