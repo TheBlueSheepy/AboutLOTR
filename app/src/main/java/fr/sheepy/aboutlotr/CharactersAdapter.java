@@ -1,32 +1,21 @@
 package fr.sheepy.aboutlotr;
 
-import java.util.List;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.List;
+
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.ViewHolder> {
     private List<String> values;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView txtHeader;
-        public TextView txtFooter;
-        public View layout;
-
-        public ViewHolder(View v) {
-            super(v);
-            layout = v;
-            txtHeader = (TextView) v.findViewById(R.id.firstLine);
-            txtFooter = (TextView) v.findViewById(R.id.secondLine);
-        }
+    // Provide a suitable constructor (depends on the kind of dataset)
+    CharactersAdapter(List<String> myDataset) {
+        values = myDataset;
     }
 
     public void add(int position, String item) {
@@ -34,20 +23,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         notifyItemInserted(position);
     }
 
-    public void remove(int position) {
+    private void remove(int position) {
         values.remove(position);
         notifyItemRemoved(position);
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public Adapter(List<String> myDataset) {
-        values = myDataset;
-    }
-
     // Create new views (invoked by the layout manager)
     @Override
-    public Adapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public CharactersAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                           int viewType) {
         // create a new view
         LayoutInflater inflater = LayoutInflater.from(
                 parent.getContext());
@@ -68,11 +52,29 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.txtHeader.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(position);
+                // Goto Character Info Details
+                // remove(position);
             }
         });
 
-        holder.txtFooter.setText("Footer: " + name);
+        holder.txtFooter.setText("Race: " + name);
+    }
+
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
+    class ViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        TextView txtHeader;
+        TextView txtFooter;
+        View layout;
+
+        ViewHolder(View v) {
+            super(v);
+            layout = v;
+            txtHeader = v.findViewById(R.id.character_name);
+            txtFooter = v.findViewById(R.id.character_info);
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

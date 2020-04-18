@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CharactersFragment extends Fragment {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private CharactersAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     static final String BASE_URL = "https://the-one-api.herokuapp.com/v1/";
@@ -47,20 +47,20 @@ public class CharactersFragment extends Fragment {
     }
 
     private void showList(View v) {
-        recyclerView = v.findViewById(R.id.my_recycler_view);
-        // use this setting to
-        // improve performance if you know that changes
-        // in content do not change the layout size
-        // of the RecyclerView
+        recyclerView = v.findViewById(R.id.character_recycler_view);
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        // FAKE LIST
         List<String> input = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            input.add("Test" + i);
+            input.add("Character " + i);
         }// define an adapter
-        mAdapter = new Adapter(input);
+
+
+        mAdapter = new CharactersAdapter(input);
         recyclerView.setAdapter(mAdapter);
     }
 
