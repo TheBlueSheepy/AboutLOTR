@@ -11,14 +11,14 @@ import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.ViewHolder> {
-    private List<String> values;
+    private List<Character> values;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    CharactersAdapter(List<String> myDataset) {
+    CharactersAdapter(List<Character> myDataset) {
         values = myDataset;
     }
 
-    public void add(int position, String item) {
+    public void add(int position, Character item) {
         values.add(position, item);
         notifyItemInserted(position);
     }
@@ -47,8 +47,8 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final String name = values.get(position);
-        holder.txtHeader.setText(name);
+        final Character currentCharacter = values.get(position);
+        holder.txtHeader.setText(currentCharacter.getName());
         holder.txtHeader.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
             }
         });
 
-        holder.txtFooter.setText("Race: " + name);
+        holder.txtFooter.setText("Race: " + currentCharacter.getRace());
     }
 
     // Provide a reference to the views for each data item

@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -36,31 +35,23 @@ public class CharactersFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.characters_fragment, container, false);
+        View charactersFragment = inflater.inflate(R.layout.characters_fragment, container, false);
+        recyclerView = charactersFragment.findViewById(R.id.character_recycler_view);
+        return charactersFragment;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         MakeApiCall();
-        showList(view);
     }
 
-    private void showList(View v) {
-        recyclerView = v.findViewById(R.id.character_recycler_view);
+    private void showList(List<Character> characters) {
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        // FAKE LIST
-        List<String> input = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            input.add("Character " + i);
-        }// define an adapter
-
-
-        mAdapter = new CharactersAdapter(input);
+        mAdapter = new CharactersAdapter(characters);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -83,6 +74,7 @@ public class CharactersFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null){
                     List<Character> characters = response.body().getDocs();
                     Toast.makeText(getContext(),"API Success",Toast.LENGTH_SHORT).show();
+                    showList(characters);
                 } else {
                     Log.i("API ERROR", response.message());
                     showError();
