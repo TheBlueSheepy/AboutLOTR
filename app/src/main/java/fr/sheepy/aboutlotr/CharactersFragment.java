@@ -1,5 +1,7 @@
 package fr.sheepy.aboutlotr;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +11,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -26,9 +30,8 @@ public class CharactersFragment extends Fragment {
     private RecyclerView recyclerView;
     private CharactersAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
-    static final String BASE_URL = "https://the-one-api.herokuapp.com/v1/";
-    static final String TOKEN = "56A91xRjOJ5hU3Zxtxry";
+    private SharedPreferences sharedPreferences;
+    private Gson gson;
 
     @Override
     public View onCreateView(
@@ -42,7 +45,30 @@ public class CharactersFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MakeApiCall();
+        sharedPreferences = getContext().getSharedPreferences(Constants.CHARACTERS_SHAREDPREF_NAME, Context.MODE_PRIVATE);
+
+        gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        List<Character> characters = getCharactersFromCache();
+        if (characters != null) {
+            showList(characters);
+        } else {
+            MakeApiCall();
+        }
+    }
+
+    private List<Character> getCharactersFromCache() {
+        String jsonCharacters = sharedPreferences.getString(Constants.CHARACTERS_SHAREDPREF_LIST, null);
+        if (jsonCharacters == null) {
+            return null;
+        } else {
+            Log.i("API DATA RESTORED", "The API data has been successfully restored from cache.");
+            Type listType = new TypeToken<List<Character>>() {
+            }.getType();
+            return gson.fromJson(jsonCharacters, listType);
+        }
     }
 
     private void showList(List<Character> characters) {
@@ -56,24 +82,21 @@ public class CharactersFragment extends Fragment {
     }
 
     private void MakeApiCall() {
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         LOTRAPI lotrAPI = retrofit.create(LOTRAPI.class);
 
-        Call<LOTRAPIResponse> call = lotrAPI.getAllCharacter("Bearer " + TOKEN);
+        Call<LOTRAPIResponse> call = lotrAPI.getAllCharacter("Bearer " + Constants.TOKEN);
         call.enqueue(new Callback<LOTRAPIResponse>() {
             @Override
             public void onResponse(Call<LOTRAPIResponse> call, Response<LOTRAPIResponse> response) {
                 if (response.isSuccessful() && response.body() != null){
                     List<Character> characters = response.body().getDocs();
-                    Toast.makeText(getContext(),"API Success",Toast.LENGTH_SHORT).show();
+                    Log.i("API SUCCESS", response.message());
+                    saveList(characters);
                     showList(characters);
                 } else {
                     Log.i("API ERROR", response.message());
@@ -86,6 +109,15 @@ public class CharactersFragment extends Fragment {
                 showError();
             }
         });
+    }
+
+    private void saveList(List<Character> characters) {
+        String jsonCharacters = gson.toJson(characters);
+        sharedPreferences
+                .edit()
+                .putString("jsonCharacters", jsonCharacters)
+                .apply();
+        Log.i("API DATA SAVED", "The API data has been successfully saved.");
     }
 
     private void showError() {
