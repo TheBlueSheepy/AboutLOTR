@@ -19,29 +19,29 @@
         android:id="@+id/character_info"
         android:layout_width="fill_parent"
         android:layout_height="26dip"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:ellipsize="marquee"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_toEndOf="@id/character_icon"
-        android:textSize="12sp"
         android:layout_toRightOf="@id/character_icon"
+        android:ellipsize="marquee"
         android:singleLine="true"
-        android:text="@string/layout_character_info" />
+        android:text="@string/layout_character_info"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/character_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/character_info"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
+        android:layout_above="@id/character_info"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
         android:layout_toEndOf="@id/character_icon"
         android:layout_toRightOf="@id/character_icon"
+        android:gravity="center_vertical"
         android:text="@string/layout_character_name"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
 </RelativeLayout>
