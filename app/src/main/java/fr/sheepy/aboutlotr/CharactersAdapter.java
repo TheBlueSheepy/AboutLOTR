@@ -1,6 +1,5 @@
 package fr.sheepy.aboutlotr;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,50 +80,12 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
         }
 
         public void bind(final Character item, final OnItemClickListener listener) {
-
-
             character_name.setText(item.getName());
 
             String race = item.getRace();
             if (race != null) {
                 character_race.setText("Race: " + race);
-                switch (item.getRace()) {
-                    case "Hobbits":
-                    case "Hobbit":
-                        character_icon.setImageResource(R.drawable.gnome);
-                        break;
-                    case "Elf":
-                    case "Elves":
-                        character_icon.setImageResource(R.drawable.elf);
-                        break;
-                    case "Men":
-                    case "Human":
-                        character_icon.setImageResource(R.drawable.knight);
-                        break;
-                    case "Ent":
-                    case "Ents":
-                        character_icon.setImageResource(R.drawable.tree);
-                        break;
-                    case "Dragons":
-                    case "Dragon":
-                        character_icon.setImageResource(R.drawable.dragon);
-                        break;
-                    case "Dwarves":
-                    case "Dwarf":
-                        character_icon.setImageResource(R.drawable.dwarf);
-                        break;
-                    case "Black Uruk":
-                    case "Orcs":
-                        character_icon.setImageResource(R.drawable.ogre);
-                        break;
-                    case "Great Spiders":
-                        character_icon.setImageResource(R.drawable.spider);
-                        break;
-                    default:
-                        character_icon.setImageResource(R.drawable.unknown);
-                        Log.i("Race", race);
-                        break;
-                }
+                character_icon.setImageResource(item.getRaceResource());
             } else {
                 character_race.setText("Race: Unknown");
                 character_icon.setImageResource(R.drawable.unknown);
