@@ -46,4 +46,21 @@ public class Character {
     public String getWikiUrl() {
         return wikiUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "_id='" + _id + '\'' +
+                ", height='" + height + '\'' +
+                ", race='" + race + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birth='" + birth + '\'' +
+                ", spouse='" + spouse + '\'' +
+                ", death='" + death + '\'' +
+                ", realm='" + realm + '\'' +
+                ", hair='" + hair + '\'' +
+                ", name='" + name + '\'' +
+                ", wikiUrl='" + wikiUrl + '\'' +
+                '}';
+    }
 }

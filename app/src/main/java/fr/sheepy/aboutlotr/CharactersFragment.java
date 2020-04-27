@@ -77,7 +77,12 @@ public class CharactersFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new CharactersAdapter(characters);
+        mAdapter = new CharactersAdapter(characters, new CharactersAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Character item) {
+                Log.i("Test item", "onItemClick: " + item.toString());
+            }
+        });
         recyclerView.setAdapter(mAdapter);
     }
 
