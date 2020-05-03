@@ -12,7 +12,7 @@
         tools:layout="@layout/home_page_fragment">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/HomeToCharacterList"
             app:destination="@id/CharactersList" />
     </fragment>
     <fragment
@@ -27,7 +27,6 @@
         <action
             android:id="@+id/seeCharacterDetails"
             app:destination="@id/CharacterInfo"
-            app:enterAnim="@android:anim/slide_out_right"
             app:launchSingleTop="false" />
     </fragment>
     <fragment
@@ -36,7 +35,7 @@
         android:label="character_fragment"
         tools:layout="@layout/character_fragment">
         <action
-            android:id="@+id/action_CharacterInfoToCharactersList"
+            android:id="@+id/CharacterInfoToCharactersList"
             app:destination="@id/CharactersList" />
         <argument
             android:name="characterInfo"

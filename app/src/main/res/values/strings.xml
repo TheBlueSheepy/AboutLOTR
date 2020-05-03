@@ -15,4 +15,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="icon_of_a_character">Icon of a Character</string>
+    <string name="temp">temp</string>
+    <string name="gender_icon">Gender Icon</string>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -14,7 +15,8 @@ import androidx.fragment.app.Fragment;
 
 public class CharacterFragment extends Fragment {
 
-    private TextView infos;
+    private TextView name, race, birth, death;
+    private ImageView icon, gender;
     private Character character;
     private Gson gson;
 
@@ -22,7 +24,11 @@ public class CharacterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View characterView = inflater.inflate(R.layout.character_fragment, container, false);
-        infos = characterView.findViewById(R.id.characInfo);
+        icon = characterView.findViewById(R.id.charaIcon);
+        name = characterView.findViewById(R.id.charaName);
+        race = characterView.findViewById(R.id.charaRace);
+        birth = characterView.findViewById(R.id.charaBirth);
+        death = characterView.findViewById(R.id.charaDeath);
         return characterView;
     }
 
@@ -38,7 +44,11 @@ public class CharacterFragment extends Fragment {
         String temp = CharacterFragmentArgs.fromBundle(getArguments()).getCharacterInfo();
         if (temp != null) {
             character = gson.fromJson(temp, Character.class);
-            infos.setText(character.toString());
+            icon.setImageResource(character.getRaceResource());
+            name.setText(character.getName());
+            race.setText(character.getRace());
+            birth.setText(character.getBirth());
+            death.setText(character.getDeath());
         }
     }
 
