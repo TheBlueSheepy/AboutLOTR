@@ -3,26 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/Home">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/Home"
         android:name="fr.sheepy.aboutlotr.HomePageFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/home_page_fragment">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/CharactersList" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/CharactersList"
         android:name="fr.sheepy.aboutlotr.CharactersFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/characters_fragment">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/CharactersListToHome"
+            app:destination="@id/Home" />
+        <action
+            android:id="@+id/seeCharacterDetails"
+            app:destination="@id/CharacterInfo"
+            app:enterAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/CharacterInfo"
+        android:name="fr.sheepy.aboutlotr.CharacterFragment"
+        android:label="character_fragment"
+        tools:layout="@layout/character_fragment">
+        <action
+            android:id="@+id/action_CharacterInfoToCharactersList"
+            app:destination="@id/CharactersList" />
+        <argument
+            android:name="characterInfo"
+            app:argType="string" />
     </fragment>
 </navigation>

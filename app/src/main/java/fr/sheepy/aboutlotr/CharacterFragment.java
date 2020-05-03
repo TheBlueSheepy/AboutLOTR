@@ -4,43 +4,42 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CharacterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CharacterFragment extends Fragment {
-    private static final String CHARACTER_INFO = "character";
 
-    private String characterInfo;
-
-    public CharacterFragment() {
-        // Required empty public constructor
-    }
-
-    public static CharacterFragment newInstance(String jsonCharacter) {
-        CharacterFragment fragment = new CharacterFragment();
-        Bundle args = new Bundle();
-        args.putString(CHARACTER_INFO, jsonCharacter);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            characterInfo = getArguments().getString(CHARACTER_INFO);
-        }
-    }
+    private TextView infos;
+    private Character character;
+    private Gson gson;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.character_fragment, container, false);
+        View characterView = inflater.inflate(R.layout.character_fragment, container, false);
+        infos = characterView.findViewById(R.id.characInfo);
+        return characterView;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        assert getArguments() != null;
+        String temp = CharacterFragmentArgs.fromBundle(getArguments()).getCharacterInfo();
+        if (temp != null) {
+            character = gson.fromJson(temp, Character.class);
+            infos.setText(character.toString());
+        }
+    }
+
 }

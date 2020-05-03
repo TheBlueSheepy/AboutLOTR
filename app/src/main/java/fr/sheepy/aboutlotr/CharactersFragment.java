@@ -18,6 +18,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -81,6 +82,10 @@ public class CharactersFragment extends Fragment {
             @Override
             public void onItemClick(Character item) {
                 Log.i("Test item", "onItemClick: " + item.toString());
+                CharactersFragmentDirections.SeeCharacterDetails action = CharactersFragmentDirections
+                        .seeCharacterDetails(gson.toJson(item, Character.class));
+                NavHostFragment.findNavController(getParentFragment())
+                        .navigate(action);
             }
         });
         recyclerView.setAdapter(mAdapter);
