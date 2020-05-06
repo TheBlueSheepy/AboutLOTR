@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -132,6 +133,10 @@ public class CharactersFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Character> characters = response.body().getDocs();
                     Log.i("API SUCCESS", response.message());
+
+                    // sort alphabetical order
+                    Collections.sort(characters);
+
                     saveList(characters);
                     showList(characters);
                 } else {

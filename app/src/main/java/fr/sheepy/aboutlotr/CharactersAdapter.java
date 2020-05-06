@@ -52,7 +52,6 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
     };
 
     CharactersAdapter(List<Character> characterList, OnItemClickListener listener) {
-        //Collections.sort(characterList);
         this.characterList = characterList;
         characterListFull = new ArrayList<>(characterList);
         this.listener = listener;

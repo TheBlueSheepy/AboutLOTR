@@ -1,7 +1,8 @@
 package fr.sheepy.aboutlotr;
 
-public class Character {
+public class Character implements Comparable<Character> {
     private String _id,height,race,gender,birth,spouse,death,realm,hair,name,wikiUrl;
+
 
     public String get_id() {
         return _id;
@@ -127,5 +128,10 @@ public class Character {
             default:
                 return R.drawable.unknown;
         }
+    }
+
+    @Override
+    public int compareTo(Character o) {
+        return this.getName().compareToIgnoreCase(o.getName());
     }
 }
