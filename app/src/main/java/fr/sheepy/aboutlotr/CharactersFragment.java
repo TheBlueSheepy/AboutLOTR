@@ -5,8 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -29,8 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CharactersFragment extends Fragment {
     private RecyclerView recyclerView;
-    private CharactersAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private CharactersAdapter charactersAdapter;
     private SharedPreferences sharedPreferences;
     private Gson gson;
 
@@ -41,7 +44,30 @@ public class CharactersFragment extends Fragment {
     ) {
         View charactersFragment = inflater.inflate(R.layout.characters_fragment, container, false);
         recyclerView = charactersFragment.findViewById(R.id.character_recycler_view);
+        setHasOptionsMenu(true);
         return charactersFragment;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.charaters_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                charactersAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -75,10 +101,10 @@ public class CharactersFragment extends Fragment {
     private void showList(List<Character> characters) {
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new CharactersAdapter(characters, new CharactersAdapter.OnItemClickListener() {
+        charactersAdapter = new CharactersAdapter(characters, new CharactersAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Character item) {
                 Log.i("Test item", "onItemClick: " + item.toString());
@@ -88,7 +114,7 @@ public class CharactersFragment extends Fragment {
                         .navigate(action);
             }
         });
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(charactersAdapter);
     }
 
     private void MakeApiCall() {
@@ -103,7 +129,7 @@ public class CharactersFragment extends Fragment {
         call.enqueue(new Callback<LOTRAPIResponse>() {
             @Override
             public void onResponse(Call<LOTRAPIResponse> call, Response<LOTRAPIResponse> response) {
-                if (response.isSuccessful() && response.body() != null){
+                if (response.isSuccessful() && response.body() != null) {
                     List<Character> characters = response.body().getDocs();
                     Log.i("API SUCCESS", response.message());
                     saveList(characters);
@@ -131,6 +157,17 @@ public class CharactersFragment extends Fragment {
     }
 
     private void showError() {
-        Toast.makeText(getContext(),"API Error",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "API Error", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                Toast.makeText(getActivity(), "sort !", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

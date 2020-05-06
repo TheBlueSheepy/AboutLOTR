@@ -4,38 +4,69 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.ViewHolder> {
+public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.ViewHolder> implements Filterable {
 
     private final OnItemClickListener listener;
 
-    private List<Character> values;
-    // Provide a suitable constructor (depends on the kind of dataset)
-    CharactersAdapter(List<Character> myDataset, OnItemClickListener listener) {
-        this.values = myDataset;
+    private List<Character> characterList;
+    private List<Character> characterListFull;
+    private Filter searchFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Character> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(characterListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Character item : characterListFull) {
+                    if (item.getName().toLowerCase().startsWith(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            characterList.clear();
+            characterList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
+    CharactersAdapter(List<Character> characterList, OnItemClickListener listener) {
+        //Collections.sort(characterList);
+        this.characterList = characterList;
+        characterListFull = new ArrayList<>(characterList);
         this.listener = listener;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.bind(values.get(position), listener);
+        holder.bind(characterList.get(position), listener);
     }
 
     public void add(int position, Character item) {
-        values.add(position, item);
+        characterList.add(position, item);
         notifyItemInserted(position);
-    }
-
-    private void remove(int position) {
-        values.remove(position);
-        notifyItemRemoved(position);
     }
 
     // Create new views (invoked by the layout manager)
@@ -52,20 +83,16 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
         return vh;
     }
 
-    @Override
-    public int getItemCount() {
-        return values.size();
+    private void remove(int position) {
+        characterList.remove(position);
+        notifyItemRemoved(position);
     }
 
     public interface OnItemClickListener {
         void onItemClick(Character item);
     }
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
     class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         TextView character_name;
         TextView character_race;
         ImageView character_icon;
@@ -98,5 +125,15 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
                 }
             });
         }
+    }
+
+    @Override
+    public int getItemCount() {
+        return characterList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return searchFilter;
     }
 }
