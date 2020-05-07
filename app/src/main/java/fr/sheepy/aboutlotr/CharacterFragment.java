@@ -46,78 +46,80 @@ public class CharacterFragment extends Fragment {
                 .create();
 
         String temp = CharacterFragmentArgs.fromBundle(getArguments()).getCharacterInfo();
-        if (temp != null) {
-            character = gson.fromJson(temp, Character.class);
-            // icon du character
-            if (race != null) {
-                icon.setImageResource(character.getRaceResource());
-            } else {
-                icon.setImageResource(R.drawable.unknown);
-            }
+        character = gson.fromJson(temp, Character.class);
 
-            // nom du character
-            if (character.getName() != null && !character.getName().equals("")) {
-                name.setText(character.getName());
-            }
+        // icon du character
+        if (race != null) {
+            icon.setImageResource(character.getRaceResource());
+        } else {
+            icon.setImageResource(R.drawable.unknown);
+        }
 
-            // genre du character
+        // nom du character
+        if (character.getName() != null && !character.getName().equals("")) {
+            name.setText(character.getName());
+        }
+
+        // genre du character
+        if (character.getGender() != null && !character.getRace().equals("")) {
             if (character.getGender().equals("Male")) {
                 gender.setImageResource(R.drawable.boy);
-            } else if (character.getGender().equals("Female")) {
-                gender.setImageResource(R.drawable.boy);
-            } else {
-                gender.setVisibility(View.GONE);
             }
-
-            // race du character
-            if (character.getRace() != null) {
-                race.setText(character.getRace());
-            } else {
-                race.setText("Unknown Race");
+            if (character.getGender().equals("Female")) {
+                gender.setImageResource(R.drawable.girl);
             }
-
-            // height du character
-            if (character.getHeight() != null && !character.getHeight().equals("")) {
-                height.setText("Height: " + character.getHeight());
-            } else {
-                height.setVisibility(View.GONE);
-            }
-
-            // birth du character
-            if (character.getBirth() != null && !character.getBirth().equals("")) {
-                birth.setText("Birth: " + character.getBirth());
-            } else {
-                birth.setVisibility(View.GONE);
-            }
-
-            // death du character
-            if (character.getDeath() != null && !character.getDeath().equals("")) {
-                death.setText("Death: " + character.getDeath());
-            } else {
-                death.setVisibility(View.GONE);
-            }
-
-            // Spouse du character
-            if (character.getSpouse() != null && !character.getSpouse().equals("")) {
-                spouse.setText("Spouse: " + character.getSpouse());
-            } else {
-                spouse.setVisibility(View.GONE);
-            }
-
-            // Realm du character
-            if (character.getRealm() != null && !character.getRealm().equals("")) {
-                realm.setText("Realm: " + character.getRealm());
-            } else {
-                realm.setVisibility(View.GONE);
-            }
-
-            // URL du character
-            if (character.getWikiUrl() != null && !character.getWikiUrl().equals("")) {
-                URL.setText("Wiki link:\n" + character.getWikiUrl());
-            } else {
-                URL.setText("Unknown Wiki Url");
-            }
-
+        } else {
+            gender.setVisibility(View.GONE);
         }
+
+        // race du character
+        if (character.getRace() != null && !character.getRace().equals("")) {
+            race.setText(character.getRace());
+        } else {
+            race.setText("Unknown Race");
+        }
+
+        // height du character
+        if (character.getHeight() != null && !character.getHeight().equals("")) {
+            height.setText("Height: " + character.getHeight());
+        } else {
+            height.setVisibility(View.GONE);
+        }
+
+        // birth du character
+        if (character.getBirth() != null && !character.getBirth().equals("")) {
+            birth.setText("Birth: " + character.getBirth());
+        } else {
+            birth.setVisibility(View.GONE);
+        }
+
+        // death du character
+        if (character.getDeath() != null && !character.getDeath().equals("")) {
+            death.setText("Death: " + character.getDeath());
+        } else {
+            death.setVisibility(View.GONE);
+        }
+
+        // Spouse du character
+        if (character.getSpouse() != null && !character.getSpouse().equals("")) {
+            spouse.setText("Spouse: " + character.getSpouse());
+        } else {
+            spouse.setVisibility(View.GONE);
+        }
+
+        // Realm du character
+        if (character.getRealm() != null && !character.getRealm().equals("")) {
+            realm.setText("Realm: " + character.getRealm());
+        } else {
+            realm.setVisibility(View.GONE);
+        }
+
+        // URL du character
+        if (character.getWikiUrl() != null && !character.getWikiUrl().equals("")) {
+            URL.setText("Wiki link:\n" + character.getWikiUrl());
+        } else {
+            URL.setText("Unknown Wiki Url");
+        }
+
     }
 }

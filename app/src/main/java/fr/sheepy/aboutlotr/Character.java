@@ -66,68 +66,72 @@ public class Character implements Comparable<Character> {
     }
 
     public int getRaceResource() {
-        switch (this.getRace()) {
-            case "Hobbits":
-            case "Hobbit":
-                return R.drawable.gnome;
-            case "Elf":
-            case "Elves":
-                return R.drawable.elf;
-            case "Men":
-            case "Human":
-                return R.drawable.man;
-            case "Ent":
-            case "Ents":
-                return R.drawable.tree;
-            case "Urulóki":
-            case "Dragons":
-            case "Dragon":
-                return R.drawable.dragon;
-            case "Dwarves":
-            case "Dwarf":
-                return R.drawable.dwarf;
-            case "Black Uruk":
-            case "Uruk-hai":
-            case "Uruk-hai,Orc":
-            case "Orc":
-            case "Orcs":
-                return R.drawable.ogre;
-            case "Great Spiders":
-                return R.drawable.spider;
-            case "Raven":
-                return R.drawable.crow;
-            case "Orc,Goblin":
-            case "Goblin,Orc":
-            case "Goblin":
-                return R.drawable.goblin;
-            case "Great Eagles":
-            case "Eagle":
-            case "Eagles":
-                return R.drawable.eagle;
-            case "Werewolves":
-            case "Wolfhound":
-                return R.drawable.werewolf;
-            case "Ainur":
-            case "Maiar":
-            case "God":
-                return R.drawable.zeus;
-            case "Balrogs":
-            case "Balrog":
-            case "Maiar,Balrogs":
-                return R.drawable.demon;
-            case "Horse":
-                return R.drawable.horse;
-            case "Men,Wraith":
-                return R.drawable.spirit;
-            case "Vampire":
-                return R.drawable.dracula;
-            case "Stone-trolls":
-                return R.drawable.golem;
-            case "Half-elven":
-                return R.drawable.halfelven;
-            default:
-                return R.drawable.unknown;
+        String tmp = this.getRace();
+        if (tmp != null) {
+            switch (tmp) {
+                case "Hobbits":
+                case "Hobbit":
+                    return R.drawable.gnome;
+                case "Elf":
+                case "Elves":
+                    return R.drawable.elf;
+                case "Men":
+                case "Human":
+                    return R.drawable.man;
+                case "Ent":
+                case "Ents":
+                    return R.drawable.tree;
+                case "Urulóki":
+                case "Dragons":
+                case "Dragon":
+                    return R.drawable.dragon;
+                case "Dwarves":
+                case "Dwarf":
+                    return R.drawable.dwarf;
+                case "Black Uruk":
+                case "Uruk-hai":
+                case "Uruk-hai,Orc":
+                case "Orc":
+                case "Orcs":
+                    return R.drawable.ogre;
+                case "Great Spiders":
+                    return R.drawable.spider;
+                case "Raven":
+                    return R.drawable.crow;
+                case "Orc,Goblin":
+                case "Goblin,Orc":
+                case "Goblin":
+                    return R.drawable.goblin;
+                case "Great Eagles":
+                case "Eagle":
+                case "Eagles":
+                    return R.drawable.eagle;
+                case "Werewolves":
+                case "Wolfhound":
+                    return R.drawable.werewolf;
+                case "Ainur":
+                case "Maiar":
+                case "God":
+                    return R.drawable.zeus;
+                case "Balrogs":
+                case "Balrog":
+                case "Maiar,Balrogs":
+                    return R.drawable.demon;
+                case "Horse":
+                    return R.drawable.horse;
+                case "Men,Wraith":
+                    return R.drawable.spirit;
+                case "Vampire":
+                    return R.drawable.dracula;
+                case "Stone-trolls":
+                    return R.drawable.golem;
+                case "Half-elven":
+                    return R.drawable.halfelven;
+                default:
+                    return R.drawable.unknown;
+            }
         }
+        return R.drawable.unknown;
     }
 
     @Override
