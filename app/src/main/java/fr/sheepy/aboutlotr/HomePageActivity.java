@@ -23,6 +23,7 @@ public class HomePageActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Gestion du Bottom Navigation Menu
         bnv = findViewById(R.id.navigation_menu);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bnv, navHostFragment.getNavController());

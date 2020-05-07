@@ -1,13 +1,8 @@
 <resources>
     <string name="app_name">AboutLOTR</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Characters</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="home_page_text">Welcome to About The Lord of The Rings \n In this app you wil found a list of all the Characters</string>
 
     <string name="layout_character_image">Character Image</string>
     <string name="layout_character_name">Character Name</string>

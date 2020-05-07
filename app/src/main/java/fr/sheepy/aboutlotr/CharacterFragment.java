@@ -49,7 +49,11 @@ public class CharacterFragment extends Fragment {
         if (temp != null) {
             character = gson.fromJson(temp, Character.class);
             // icon du character
-            icon.setImageResource(character.getRaceResource());
+            if (race != null) {
+                icon.setImageResource(character.getRaceResource());
+            } else {
+                icon.setImageResource(R.drawable.unknown);
+            }
 
             // nom du character
             if (character.getName() != null && !character.getName().equals("")) {

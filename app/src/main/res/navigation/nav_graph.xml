@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/Home"
         android:name="fr.sheepy.aboutlotr.HomePageFragment"
-        android:label="@string/first_fragment_label"
+        android:label="home_fragment"
         tools:layout="@layout/home_fragment">
 
         <action
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/CharactersList"
         android:name="fr.sheepy.aboutlotr.CharactersFragment"
-        android:label="@string/second_fragment_label"
+        android:label="character_list_fragment"
         tools:layout="@layout/characters_fragment">
 
         <action
@@ -27,7 +27,9 @@
         <action
             android:id="@+id/seeCharacterDetails"
             app:destination="@id/CharacterInfo"
-            app:launchSingleTop="false" />
+            app:launchSingleTop="false"
+            app:popUpTo="@id/CharactersList"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/CharacterInfo"
