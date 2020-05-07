@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".HomePageActivity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="?attr/colorPrimary"
+        app:itemIconTint="@drawable/navigation_menu_colors"
+        app:itemTextColor="@drawable/navigation_menu_colors"
+        app:menu="@menu/navigation_menu" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

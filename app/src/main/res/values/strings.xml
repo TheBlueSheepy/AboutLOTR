@@ -18,4 +18,8 @@
     <string name="temp">temp</string>
     <string name="unknown">Unknown</string>
     <string name="gender_icon">Gender Icon</string>
+
+    <string name="bottom_navigation_menu_home">Home</string>
+    <string name="bottom_navigation_menu_characters">Characters</string>
+    <string name="bottom_navigation_menu_books">Books</string>
 </resources>

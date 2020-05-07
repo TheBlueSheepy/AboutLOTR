@@ -17,7 +17,7 @@ public class HomePageFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.home_page_fragment, container, false);
+        return inflater.inflate(R.layout.home_fragment, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

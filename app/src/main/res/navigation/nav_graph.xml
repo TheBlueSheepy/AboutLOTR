@@ -9,7 +9,7 @@
         android:id="@+id/Home"
         android:name="fr.sheepy.aboutlotr.HomePageFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/home_page_fragment">
+        tools:layout="@layout/home_fragment">
 
         <action
             android:id="@+id/HomeToCharacterList"
@@ -41,4 +41,9 @@
             android:name="characterInfo"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/BooksList"
+        android:name="fr.sheepy.aboutlotr.BooksFragment"
+        android:label="books_fragment"
+        tools:layout="@layout/books_fragment" />
 </navigation>
