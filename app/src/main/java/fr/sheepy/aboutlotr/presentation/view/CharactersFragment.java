@@ -1,7 +1,5 @@
 package fr.sheepy.aboutlotr.presentation.view;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -28,20 +24,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import fr.sheepy.aboutlotr.Constants;
 import fr.sheepy.aboutlotr.R;
-import fr.sheepy.aboutlotr.data.LOTRAPI;
+import fr.sheepy.aboutlotr.Singletons;
 import fr.sheepy.aboutlotr.presentation.model.Character;
 import fr.sheepy.aboutlotr.presentation.model.LOTRAPIResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CharactersFragment extends Fragment {
     private RecyclerView recyclerView;
     private CharactersAdapter charactersAdapter;
-    private SharedPreferences sharedPreferences;
-    private Gson gson;
 
     @Override
     public View onCreateView(
@@ -78,11 +70,6 @@ public class CharactersFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sharedPreferences = getContext().getSharedPreferences(Constants.CHARACTERS_SHAREDPREF_NAME, Context.MODE_PRIVATE);
-
-        gson = new GsonBuilder()
-                .setLenient()
-                .create();
 
         List<Character> characters = getCharactersFromCache();
         if (characters != null) {
@@ -93,14 +80,14 @@ public class CharactersFragment extends Fragment {
     }
 
     private List<Character> getCharactersFromCache() {
-        String jsonCharacters = sharedPreferences.getString(Constants.CHARACTERS_SHAREDPREF_LIST, null);
+        String jsonCharacters = Singletons.getSharedPreferencesInstance(getContext(), Constants.CHARACTERS_SHAREDPREF_NAME).getString(Constants.CHARACTERS_SHAREDPREF_LIST, null);
         if (jsonCharacters == null) {
             return null;
         } else {
             Log.i("API DATA RESTORED", "The API data has been successfully restored from cache.");
             Type listType = new TypeToken<List<Character>>() {
             }.getType();
-            return gson.fromJson(jsonCharacters, listType);
+            return Singletons.getGsonInstance().fromJson(jsonCharacters, listType);
         }
     }
 
@@ -115,7 +102,7 @@ public class CharactersFragment extends Fragment {
             public void onItemClick(Character item) {
                 Log.i("Test item", "onItemClick: " + item.toString());
                 CharactersFragmentDirections.SeeCharacterDetails action = CharactersFragmentDirections
-                        .seeCharacterDetails(gson.toJson(item, Character.class));
+                        .seeCharacterDetails(Singletons.getGsonInstance().toJson(item, Character.class));
                 NavHostFragment.findNavController(getParentFragment())
                         .navigate(action);
             }
@@ -124,14 +111,7 @@ public class CharactersFragment extends Fragment {
     }
 
     private void MakeApiCall() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        LOTRAPI lotrAPI = retrofit.create(LOTRAPI.class);
-
-        Call<LOTRAPIResponse> call = lotrAPI.getAllCharacter("Bearer " + Constants.TOKEN);
+        Call<LOTRAPIResponse> call = Singletons.getLotrapiInstance().getAllCharacter("Bearer " + Constants.TOKEN);
         call.enqueue(new Callback<LOTRAPIResponse>() {
             @Override
             public void onResponse(Call<LOTRAPIResponse> call, Response<LOTRAPIResponse> response) {
@@ -158,8 +138,8 @@ public class CharactersFragment extends Fragment {
     }
 
     private void saveList(List<Character> characters) {
-        String jsonCharacters = gson.toJson(characters);
-        sharedPreferences
+        String jsonCharacters = Singletons.getGsonInstance().toJson(characters);
+        Singletons.getSharedPreferencesInstance(getContext(), Constants.CHARACTERS_SHAREDPREF_NAME)
                 .edit()
                 .putString("jsonCharacters", jsonCharacters)
                 .apply();

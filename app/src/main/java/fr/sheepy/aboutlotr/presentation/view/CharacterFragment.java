@@ -7,12 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import fr.sheepy.aboutlotr.R;
+import fr.sheepy.aboutlotr.Singletons;
 import fr.sheepy.aboutlotr.presentation.model.Character;
 
 public class CharacterFragment extends Fragment {
@@ -21,9 +19,10 @@ public class CharacterFragment extends Fragment {
     private ImageView icon, gender;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View characterView = inflater.inflate(R.layout.character_fragment, container, false);
+
+        // chara info fields
         icon = characterView.findViewById(R.id.charaIcon);
         gender = characterView.findViewById(R.id.charaGender);
         name = characterView.findViewById(R.id.charaName);
@@ -34,6 +33,7 @@ public class CharacterFragment extends Fragment {
         spouse = characterView.findViewById(R.id.charaSpouse);
         realm = characterView.findViewById(R.id.charaRealm);
         URL = characterView.findViewById(R.id.charaURL);
+
         return characterView;
     }
 
@@ -41,13 +41,11 @@ public class CharacterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
+        Character character = Singletons.getGsonInstance().fromJson(getArguments().getString("characterInfo"), Character.class);
+        showCharacterInfos(character);
+    }
 
-        String temp = CharacterFragmentArgs.fromBundle(getArguments()).getCharacterInfo();
-        Character character = gson.fromJson(temp, Character.class);
-
+    public void showCharacterInfos(Character character) {
         // icon du character
         if (race != null) {
             icon.setImageResource(character.getRaceResource());
@@ -120,6 +118,5 @@ public class CharacterFragment extends Fragment {
         } else {
             URL.setText("Unknown Wiki Url");
         }
-
     }
 }
