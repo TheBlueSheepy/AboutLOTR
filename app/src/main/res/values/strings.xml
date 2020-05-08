@@ -2,13 +2,13 @@
     <string name="app_name">AboutLOTR</string>
     <string name="action_settings">Settings</string>
 
-    <string name="home_page_text">Welcome to About The Lord of The Rings \n In this app you wil found a list of all the Characters</string>
+    <string name="home_page_text">Welcome to About The Lord of The Rings\nIn this app you will find a list of all the Characters of LOTR</string>
 
     <string name="layout_character_image">Character Image</string>
     <string name="layout_character_name">Character Name</string>
     <string name="layout_character_info">Character Info</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="books_text">Not yet Implemented</string>
     <string name="icon_of_a_character">Icon of a Character</string>
     <string name="temp">temp</string>
     <string name="unknown">Unknown</string>
@@ -17,4 +17,6 @@
     <string name="bottom_navigation_menu_home">Home</string>
     <string name="bottom_navigation_menu_characters">Characters</string>
     <string name="bottom_navigation_menu_books">Books</string>
+    <string name="charaters_search">Search</string>
+    <string name="the_ring">The ring</string>
 </resources>

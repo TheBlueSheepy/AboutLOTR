@@ -12,8 +12,11 @@
         tools:layout="@layout/home_fragment">
 
         <action
-            android:id="@+id/HomeToCharacterList"
+            android:id="@+id/HomeToCharactersList"
             app:destination="@id/CharactersList" />
+        <action
+            android:id="@+id/HomeToBooksList"
+            app:destination="@id/BooksList" />
     </fragment>
     <fragment
         android:id="@+id/CharactersList"
@@ -26,10 +29,7 @@
             app:destination="@id/Home" />
         <action
             android:id="@+id/seeCharacterDetails"
-            app:destination="@id/CharacterInfo"
-            app:launchSingleTop="false"
-            app:popUpTo="@id/CharactersList"
-            app:popUpToInclusive="false" />
+            app:destination="@id/CharacterInfo" />
     </fragment>
     <fragment
         android:id="@+id/CharacterInfo"
