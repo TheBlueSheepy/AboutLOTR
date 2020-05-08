@@ -1,4 +1,4 @@
-package fr.sheepy.aboutlotr;
+package fr.sheepy.aboutlotr.presentation.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,13 +12,13 @@ import com.google.gson.GsonBuilder;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import fr.sheepy.aboutlotr.R;
+import fr.sheepy.aboutlotr.presentation.model.Character;
 
 public class CharacterFragment extends Fragment {
 
     private TextView name, race, height, birth, death, spouse, realm, URL;
     private ImageView icon, gender;
-    private Character character;
-    private Gson gson;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,12 +41,12 @@ public class CharacterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        gson = new GsonBuilder()
+        Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
         String temp = CharacterFragmentArgs.fromBundle(getArguments()).getCharacterInfo();
-        character = gson.fromJson(temp, Character.class);
+        Character character = gson.fromJson(temp, Character.class);
 
         // icon du character
         if (race != null) {

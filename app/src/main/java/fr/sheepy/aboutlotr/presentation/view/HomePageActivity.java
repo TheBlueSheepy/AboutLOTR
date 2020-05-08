@@ -1,4 +1,4 @@
-package fr.sheepy.aboutlotr;
+package fr.sheepy.aboutlotr.presentation.view;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import fr.sheepy.aboutlotr.R;
 
 public class HomePageActivity extends AppCompatActivity {
 

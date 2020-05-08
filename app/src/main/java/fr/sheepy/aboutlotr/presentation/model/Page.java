@@ -1,4 +1,4 @@
-package fr.sheepy.aboutlotr;
+package fr.sheepy.aboutlotr.presentation.model;
 
 class Page {
     private int current;
@@ -7,6 +7,18 @@ class Page {
     private int next;
     private Boolean hasNext;
     private int total;
+
+    public Page() {
+    }
+
+    public Page(int current, int prev, Boolean hasPrev, int next, Boolean hasNext, int total) {
+        this.current = current;
+        this.prev = prev;
+        this.hasPrev = hasPrev;
+        this.next = next;
+        this.hasNext = hasNext;
+        this.total = total;
+    }
 
     public int getCurrent() {
         return current;

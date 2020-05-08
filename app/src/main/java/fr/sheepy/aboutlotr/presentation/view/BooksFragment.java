@@ -1,4 +1,4 @@
-package fr.sheepy.aboutlotr;
+package fr.sheepy.aboutlotr.presentation.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import fr.sheepy.aboutlotr.R;
 
 public class BooksFragment extends Fragment {
 

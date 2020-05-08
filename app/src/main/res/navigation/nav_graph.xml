@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/Home"
-        android:name="fr.sheepy.aboutlotr.HomePageFragment"
+        android:name="fr.sheepy.aboutlotr.presentation.view.HomePageFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment">
 
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/CharactersList"
-        android:name="fr.sheepy.aboutlotr.CharactersFragment"
+        android:name="fr.sheepy.aboutlotr.presentation.view.CharactersFragment"
         android:label="character_list_fragment"
         tools:layout="@layout/characters_fragment">
 
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/CharacterInfo"
-        android:name="fr.sheepy.aboutlotr.CharacterFragment"
+        android:name="fr.sheepy.aboutlotr.presentation.view.CharacterFragment"
         android:label="character_fragment"
         tools:layout="@layout/character_fragment">
         <action
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/BooksList"
-        android:name="fr.sheepy.aboutlotr.BooksFragment"
+        android:name="fr.sheepy.aboutlotr.presentation.view.BooksFragment"
         android:label="books_fragment"
         tools:layout="@layout/books_fragment" />
 </navigation>

@@ -1,4 +1,4 @@
-package fr.sheepy.aboutlotr;
+package fr.sheepy.aboutlotr.presentation.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,6 +26,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import fr.sheepy.aboutlotr.Constants;
+import fr.sheepy.aboutlotr.R;
+import fr.sheepy.aboutlotr.data.LOTRAPI;
+import fr.sheepy.aboutlotr.presentation.model.Character;
+import fr.sheepy.aboutlotr.presentation.model.LOTRAPIResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

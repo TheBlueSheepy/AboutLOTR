@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".CharacterFragment">
+    tools:context=".presentation.view.CharacterFragment">
 
     <ImageView
         android:id="@+id/charaIcon"

@@ -1,4 +1,4 @@
-package fr.sheepy.aboutlotr;
+package fr.sheepy.aboutlotr.presentation.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
+import fr.sheepy.aboutlotr.R;
+import fr.sheepy.aboutlotr.presentation.model.Character;
 
 public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.ViewHolder> implements Filterable {
 
