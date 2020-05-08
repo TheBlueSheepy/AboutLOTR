@@ -89,6 +89,16 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
         notifyItemRemoved(position);
     }
 
+    @Override
+    public int getItemCount() {
+        return characterList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return searchFilter;
+    }
+
     public interface OnItemClickListener {
         void onItemClick(Character item);
     }
@@ -126,15 +136,5 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
                 }
             });
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return characterList.size();
-    }
-
-    @Override
-    public Filter getFilter() {
-        return searchFilter;
     }
 }

@@ -3,7 +3,7 @@ package fr.sheepy.aboutlotr.presentation.model;
 import fr.sheepy.aboutlotr.R;
 
 public class Character implements Comparable<Character> {
-    private String _id,height,race,gender,birth,spouse,death,realm,hair,name,wikiUrl;
+    private String _id, height, race, gender, birth, spouse, death, realm, hair, name, wikiUrl;
 
     public Character() {
     }
