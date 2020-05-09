@@ -9,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import fr.sheepy.aboutlotr.Constants;
 import fr.sheepy.aboutlotr.R;
 import fr.sheepy.aboutlotr.Singletons;
 import fr.sheepy.aboutlotr.presentation.model.Character;
+import fr.sheepy.aboutlotr.presentation.presenter.CharacterPresenter;
 
-public class CharacterFragment extends Fragment {
+public class CharacterFragment extends Fragment implements CharacterPresenter.View {
 
+    private CharacterPresenter presenter;
     private TextView name, race, height, birth, death, spouse, realm, URL;
     private ImageView icon, gender;
 
@@ -41,10 +44,12 @@ public class CharacterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Character character = Singletons.getGsonInstance().fromJson(getArguments().getString("characterInfo"), Character.class);
-        showCharacterInfos(character);
+        presenter = new CharacterPresenter(this,
+                Singletons.getGsonInstance().fromJson(getArguments().getString(Constants.CHARACTER_BUNDLE_INFOS), Character.class));
+        presenter.onStart();
     }
 
+    @Override
     public void showCharacterInfos(Character character) {
         // icon du character
         if (race != null) {

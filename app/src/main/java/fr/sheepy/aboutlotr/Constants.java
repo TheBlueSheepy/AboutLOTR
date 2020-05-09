@@ -8,4 +8,7 @@ public class Constants {
     // Shared Preference token
     public static final String CHARACTERS_SHAREDPREF_NAME = "Characters";
     public static final String CHARACTERS_SHAREDPREF_LIST = "jsonCharacters";
+
+    // Bundle token
+    public static final String CHARACTER_BUNDLE_INFOS = "characterInfo";
 }

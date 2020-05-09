@@ -1,7 +1,6 @@
 package fr.sheepy.aboutlotr.presentation.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,27 +10,19 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import fr.sheepy.aboutlotr.Constants;
 import fr.sheepy.aboutlotr.R;
-import fr.sheepy.aboutlotr.Singletons;
+import fr.sheepy.aboutlotr.data.LOTRRepository;
 import fr.sheepy.aboutlotr.presentation.model.Character;
-import fr.sheepy.aboutlotr.presentation.model.LOTRAPIResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import fr.sheepy.aboutlotr.presentation.presenter.CharactersPresenter;
 
-public class CharactersFragment extends Fragment {
+public class CharactersFragment extends Fragment implements CharactersPresenter.View {
+    private CharactersPresenter presenter;
     private RecyclerView recyclerView;
     private CharactersAdapter charactersAdapter;
 
@@ -71,27 +62,12 @@ public class CharactersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        List<Character> characters = getCharactersFromCache();
-        if (characters != null) {
-            showList(characters);
-        } else {
-            MakeApiCall();
-        }
+        presenter = new CharactersPresenter(this, LOTRRepository.getInstance(getContext()));
+        presenter.onStart();
     }
 
-    private List<Character> getCharactersFromCache() {
-        String jsonCharacters = Singletons.getSharedPreferencesInstance(getContext(), Constants.CHARACTERS_SHAREDPREF_NAME).getString(Constants.CHARACTERS_SHAREDPREF_LIST, null);
-        if (jsonCharacters == null) {
-            return null;
-        } else {
-            Log.i("API DATA RESTORED", "The API data has been successfully restored from cache.");
-            Type listType = new TypeToken<List<Character>>() {
-            }.getType();
-            return Singletons.getGsonInstance().fromJson(jsonCharacters, listType);
-        }
-    }
-
-    private void showList(List<Character> characters) {
+    @Override
+    public void showList(List<Character> characters) {
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -100,53 +76,14 @@ public class CharactersFragment extends Fragment {
         charactersAdapter = new CharactersAdapter(characters, new CharactersAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Character item) {
-                Log.i("Test item", "onItemClick: " + item.toString());
-                CharactersFragmentDirections.SeeCharacterDetails action = CharactersFragmentDirections
-                        .seeCharacterDetails(Singletons.getGsonInstance().toJson(item, Character.class));
-                NavHostFragment.findNavController(getParentFragment())
-                        .navigate(action);
+                presenter.onCharacterClick(item);
             }
         });
         recyclerView.setAdapter(charactersAdapter);
     }
 
-    private void MakeApiCall() {
-        Call<LOTRAPIResponse> call = Singletons.getLotrapiInstance().getAllCharacter("Bearer " + Constants.TOKEN);
-        call.enqueue(new Callback<LOTRAPIResponse>() {
-            @Override
-            public void onResponse(Call<LOTRAPIResponse> call, Response<LOTRAPIResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Character> characters = response.body().getDocs();
-                    Log.i("API SUCCESS", response.message());
-
-                    // sort alphabetical order
-                    Collections.sort(characters);
-
-                    saveList(characters);
-                    showList(characters);
-                } else {
-                    Log.i("API ERROR", response.message());
-                    showError();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LOTRAPIResponse> call, Throwable t) {
-                showError();
-            }
-        });
-    }
-
-    private void saveList(List<Character> characters) {
-        String jsonCharacters = Singletons.getGsonInstance().toJson(characters);
-        Singletons.getSharedPreferencesInstance(getContext(), Constants.CHARACTERS_SHAREDPREF_NAME)
-                .edit()
-                .putString("jsonCharacters", jsonCharacters)
-                .apply();
-        Log.i("API DATA SAVED", "The API data has been successfully saved.");
-    }
-
-    private void showError() {
+    @Override
+    public void showError() {
         Toast.makeText(getContext(), "API Error", Toast.LENGTH_SHORT).show();
     }
 
@@ -154,7 +91,7 @@ public class CharactersFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                Toast.makeText(getActivity(), "sort !", Toast.LENGTH_SHORT).show();
+                // nothing
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

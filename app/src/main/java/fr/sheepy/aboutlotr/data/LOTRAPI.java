@@ -7,5 +7,5 @@ import retrofit2.http.Header;
 
 public interface LOTRAPI {
     @GET("character")
-    Call<LOTRAPIResponse> getAllCharacter(@Header("Authorization") String credentials);
+    Call<LOTRAPIResponse> getAllCharacters(@Header("Authorization") String credentials);
 }

@@ -37,9 +37,9 @@ public class Singletons {
         return lotrapiInstance;
     }
 
-    public static SharedPreferences getSharedPreferencesInstance(Context context, String key) {
+    public static SharedPreferences getSharedPreferencesInstance(Context context) {
         if (sharedPreferencesInstance == null) {
-            sharedPreferencesInstance = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+            sharedPreferencesInstance = context.getSharedPreferences(Constants.CHARACTERS_SHAREDPREF_NAME, Context.MODE_PRIVATE);
         }
         return sharedPreferencesInstance;
     }

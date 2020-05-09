@@ -7,12 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import fr.sheepy.aboutlotr.R;
+import fr.sheepy.aboutlotr.presentation.presenter.BooksPresenter;
 
-public class BooksFragment extends Fragment {
+public class BooksFragment extends Fragment implements BooksPresenter.View {
+
+    private BooksPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new BooksPresenter(this);
     }
 
     @Override
