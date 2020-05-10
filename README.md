@@ -2,7 +2,7 @@
 An android app about The Lord of The Rings
 
 ## Présentation
-AboutLOTR est une application ou vous pourrez visualiser une liste des personnages de The Lord of The Rings. Les données de cette application viennent de l'API "The LOTR API".
+AboutLOTR est une application ou vous pourrez visualiser une liste des personnages de The Lord of The Rings. Les données de cette application viennent de l'API "<a href="https://the-one-api.herokuapp.com/">The LOTR API</a>".
 
 ## Récupération du projet
 ```
