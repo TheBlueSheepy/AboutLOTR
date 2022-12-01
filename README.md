@@ -1,3 +1,6 @@
+## [EDIT]
+3rd year Android engineering school project.
+
 # AboutLOTR
 An android app about The Lord of The Rings
 
